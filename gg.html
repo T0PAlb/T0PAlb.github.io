@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание по HTML: Ссылки и форма</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 120px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="section" id="top">
+        <h1>Список гиперссылок</h1>
+        <ul>
+            <li><a href="http://kubsu.ru">КубГУ (HTTP)</a></li>
+
+            <li><a href="https://kubsu.ru">КубГУ (HTTPS)</a></li>
+
+            <li>
+                <a href="https://kubsu.ru">
+                    <img src="https://upload.wikimedia.org/wikipedia/ru/a/a2/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%9A%D1%83%D0%B1%D0%93%D0%A3.png" alt="Логотип КубГУ" width="100" height="100">
+                </a> 
+            </li>
+            <li>
+                <a href="https://www.balenciaga.com/en-en?ysclid=mfpo38gsb2994508615">
+                    <img src="https://www.balenciaga.com/on/demandware.static/-/Sites/default/dw09f423ba/images/logo/BAL/logo.svg" alt="Логотип balenciaga" width="200" height="100">
+                </a>
+            </li>
+
+            <li><a href="form-section">О нас (внутренняя страница)</a></li>
+
+            <li><a href="https://clck.ru/3PHSVU">Главная страница</a></li>
+
+            <li><a href="#form-section">Перейти к форме (текущая страница)</a></li>
+
+            <li><a href="https://www.google.com/search?q=КубГУ&num=1&hl=ru">Ссылка с параметрами</a></li>
+
+            <li><a href="https://www.kubsu.ru/ru/user/71019">Ссылка с id</a></li>
+
+            <li><a href="./page.html">Страница в текущем каталоге</a></li>
+
+            <li><a href="./about/info.html">Страница в каталоге about</a></li>
+
+            <li><a href="../page.html">Страница уровнем выше</a></li>
+
+            <li><a href="../../page.html">Страница двумя уровнями выше</a></li>
+
+            <li><a href="https://clck.ru/3PHT3P">сторонний сайт</a></li>
+
+            <li>
+                Ссылки на изображении:
+                <img src="https://via.placeholder.com/300x150?text=Карта+ссылок" usemap="#image-map" alt="Карта ссылок">
+                <map name="image-map">
+                    <area shape="rect" coords="0,0,150,150" href="https://kubsu.ru" alt="Прямоугольная область">
+                    <area shape="circle" coords="225,75,50" href="https://kubsu.ru/about" alt="Круглая область">
+                </map>
+            </li>
+
+            <li><a href="">Пустая ссылка</a></li>
+
+            <li>Ссылка без href</li>
+
+            <li><a href="https://kubsu.ru" rel="nofollow">Запрещена для перехода поисковиков</a></li>
+
+            <li><a href="https://kubsu.ru" rel="noindex">Запрещена для индексации</a></li>
+
+            <li>
+                Ссылки с атрибутом title:
+                <ol>
+                    <li><a href="https://kubsu.ru" title="Официальный сайт Кубанского государственного университета">КубГУ</a></li>
+                    <li><a href="https://kubsu.ru/ru/abiturient" title="Информация о университете">О нас</a></li>
+                    <li><a href="https://kubsu.ru/contacts" title="Контактная информация">Контакты</a></li>
+                </ol>
+            </li>
+
+            <li><a href="ftp://user:password@ftp.example.com/file.txt">Файл на FTP сервере</a></li>
+        </ul>
+
+        <p>
+          Кубанский государственный университет самый лучший университет Кубани.
+          Больше информации 
+          <a href="https://kubsu.ru/ru/university" target="_blank">тут</a>.
+        </p>
+    </div>
+
+    <div class="section" id="form-section">
+        <h2>Форма</h2>
+        <form action="/submit" method="post">
+            <label for="full-name">ФИО:</label>
+            <input type="text" id="full-name" name="full-name" required>
+
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="birthdate">Дата рождения:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <label>Пол:</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male" style="display: inline;">Мужской</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female" style="display: inline;">Женский</label>
+
+            <label for="languages">Любимый язык программирования:</label>
+            <select id="languages" name="languages" multiple required>
+                <option value="Pascal">Pascal</option>
+                <option value="C">C</option>
+                <option value="C++">C++</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="PHP">PHP</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="Haskel">Haskel</option>
+                <option value="Clojure">Clojure</option>
+                <option value="Prolog">Prolog</option>
+                <option value="Scala">Scala</option>
+            </select>
+
+            <label for="bio">Биография:</label>
+            <textarea id="bio" name="bio" placeholder="Расскажите о себе..."></textarea>
+
+            <label for="contract">
+                <input type="checkbox" id="contract" name="contract" required>
+                С контрактом ознакомлен(а)
+            </label>
+
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>
