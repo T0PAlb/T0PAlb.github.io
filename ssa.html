@@ -1,0 +1,250 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание по HTML: Ссылки и форма</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 120px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="section" id="top">
+        <h1>Список гиперссылок</h1>
+        <ul>
+            <!-- 1. Абсолютная ссылка на КубГУ (HTTP) -->
+            <li><a href="http://kubsu.ru">КубГУ (HTTP)</a></li>
+
+            <!-- 2. Абсолютная ссылка на КубГУ (HTTPS) -->
+            <li><a href="https://kubsu.ru">КубГУ (HTTPS)</a></li>
+
+            <!-- 3. Ссылка-изображение -->
+            <li>
+                <a href="https://kubsu.ru">
+                    <img src="https://via.placeholder.com/100x50?text=КубГУ" alt="Логотип КубГУ">
+                </a> (ссылка через изображение)
+            </li>
+
+            <!-- 4. Сокращённая ссылка на внутреннюю страницу -->
+            <li><a href="/about">О нас (внутренняя страница)</a></li>
+
+            <!-- 5. Сокращённая ссылка на главную -->
+            <li><a href="/">Главная страница</a></li>
+
+            <!-- 6. Ссылка на фрагмент текущей страницы -->
+            <li><a href="#form-section">Перейти к форме (текущая страница)</a></li>
+
+            <!-- 7. Ссылка с тремя параметрами в URL -->
+            <li><a href="page.html?user=john&age=25&city=moscow">Ссылка с параметрами</a></li>
+
+            <!-- 8. Ссылка с параметром id -->
+            <li><a href="page.html?id=123">Ссылка с id=123</a></li>
+
+            <!-- 9. Относительная ссылка в текущем каталоге -->
+            <li><a href="./page.html">Страница в текущем каталоге</a></li>
+
+            <!-- 10. Относительная ссылка в каталоге about -->
+            <li><a href="./about/info.html">Страница в каталоге about</a></li>
+
+            <!-- 11. Относительная ссылка в каталог выше -->
+            <li><a href="../page.html">Страница уровнем выше</a></li>
+
+            <!-- 12. Относительная ссылка на два уровня выше -->
+            <li><a href="../../page.html">Страница двумя уровнями выше</a></li>
+
+            <!-- 13. Контекстная ссылка в тексте абзаца -->
+            <li>Узнайте больше на <a href="https://kubsu.ru">сайте КубГУ</a> в этом абзаце.</li>
+
+            <!-- 14. Ссылка на фрагмент стороннего сайта -->
+            <li><a href="https://kubsu.ru#block-main-menu">Меню на сайте КубГУ</a></li>
+
+            <!-- 15. Ссылки из областей изображения (map) -->
+            <li>
+                Ссылки на изображении:
+                <img src="https://via.placeholder.com/300x150?text=Карта" usemap="#image-map" alt="Карта ссылок">
+                <map name="image-map">
+                    <area shape="rect" coords="0,0,150,150" href="https://kubsu.ru" alt="Прямоугольная область">
+                    <area shape="circle" coords="225,75,50" href="https://kubsu.ru/about" alt="Круглая область">
+                </map>
+            </li>
+
+            <!-- 16. Ссылка с пустым href -->
+            <li><a href="">Пустая ссылка</a></li>
+
+            <!-- 17. Ссылка без href -->
+            <li><a>Ссылка без href</a></li>
+
+            <!-- 18. Ссылка, запрещённая для перехода поисковикам -->
+            <li><a href="https://kubsu.ru" rel="nofollow">Запрещена для перехода поисковиков</a></li>
+
+            <!-- 19. Ссылка, запрещённая для индексации -->
+            <li><a href="https://kubsu.ru" rel="noindex">Запрещена для индексации</a></li>
+
+            <!-- 20. Нумерованный список ссылок с title -->
+            <li>
+                Ссылки с атрибутом title:
+                <ol>
+                    <li><a href="https://kubsu.ru" title="Главная страница КубГУ">КубГУ</a></li>
+                    <li><a href="https://kubsu.ru/about" title="О университете">О нас</a></li>
+                    <li><a href="https://kubsu.ru/contacts" title="Контакты КубГУ">Контакты</a></li>
+                </ol>
+            </li>
+
+            <!-- 21. Ссылка на FTP с авторизацией -->
+            <li><a href="ftp://user:password@ftp.example.com/file.txt">Файл на FTP</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="form-section">
+        <h2>Форма</h2>
+        <form action="/submit" method="post">
+            <!-- Поле ФИО -->
+            <label for="full-name">ФИО:</label>
+            <input type="text" id="full-name" name="full-name" required>
+
+            <!-- Поле телефона -->
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <!-- Поле email -->
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Поле даты рождения -->
+            <label for="birthdate">Дата рождения:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <!-- Поле пола (радиокнопки) -->
+            <label>Пол:</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male" style="display: inline;">Мужской</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female" style="display: inline;">Женский</label>
+
+            <!-- Множественный выбор языков программирования -->
+            <label for="languages">Любимый язык программирования:</label>
+            <select id="languages" name="languages" multiple required>
+                <option value="Pascal">Pascal</option>
+                <option value="C">C</option>
+                <option value="C++">C++</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="PHP">PHP</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="Haskell">Haskell</option>
+                <option value="Clojure">Clojure</option>
+                <option value="Prolog">Prolog</option>
+                <option value="Scala">Scala</option>
+            </select>
+
+            <!-- Поле биографии -->
+            <label for="bio">Биография:</label>
+            <textarea id="bio" name="bio" placeholder="Расскажите о себе..."></textarea>
+
+            <!-- Чекбокс "С контрактом ознакомлен" -->
+            <label for="contract">
+                <input type="checkbox" id="contract" name="contract" required>
+                С контрактом ознакомлен(а)
+            </label>
+
+            <!-- Кнопка отправки -->
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+
+    <!-- Якорь для возврата наверх -->
+    <div id="bottom">
+        <a href="#top">Вернуться наверх</a>
+    </div>
+</body>
+</html>
