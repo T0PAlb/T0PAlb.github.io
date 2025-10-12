@@ -4,182 +4,376 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание по HTML: Ссылки и форма</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            line-height: 1.6;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        img {
-            max-width: 100%;
-        }
-        form {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        textarea {
-            height: 120px;
-        }
-        button {
-            background: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #218838;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="section" id="top">
-        <h1>Список гиперссылок</h1>
-        <ul>
-            <li><a href="http://kubsu.ru">КубГУ (HTTP)</a></li>
+    <header class="bg-light border-bottom py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <div class="logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/ru/a/a2/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%9A%D1%83%D0%B1%D0%93%D0%A3.png" 
+                             alt="Логотип КубГУ" 
+                             class="img-fluid" 
+                             style="width: 80px; height: 80px;">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="site-name">
+                        <h1 class="h4 mb-0 text-dark">Кубанский государственный университет</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-            <li><a href="https://kubsu.ru">КубГУ (HTTPS)</a></li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100 justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Об университете</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Образование</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Наука</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-            <li>
-                <a href="https://kubsu.ru">
-                    <img src="https://upload.wikimedia.org/wikipedia/ru/a/a2/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%9A%D1%83%D0%B1%D0%93%D0%A3.png" alt="Логотип КубГУ" width="100" height="100">
-                </a> 
-            </li>
-            <li>
-                <a href="https://www.balenciaga.com/en-en?ysclid=mfpo38gsb2994508615">
-                    <img src="https://www.balenciaga.com/on/demandware.static/-/Sites/default/dw09f423ba/images/logo/BAL/logo.svg" alt="Логотип balenciaga" width="200" height="100">
-                </a>
-            </li>
+    <main class="container my-4">
+        <div class="row g-4">
+            <div class="col-12">
+                <section class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Калькулятор стоимости заказа</h2>
+                        <form id="calculator-form" class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="product" class="form-label">Выберите товар:</label>
+                                    <select class="form-select" id="product" required>
+                                        <option value="" selected disabled>-- Выберите товар --</option>
+                                        <option value="250000">balenciaga - 250 000 руб.</option>
+                                        <option value="150000">Rick Owens - 150 000 руб.</option>
+                                        <option value="350000">Raf simons - 350 000 руб.</option>
+                                        <option value="800000">adidas - 800 000руб.</option>
+                                        <option value="120000">jeremy scott - 120 000 руб.</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, выберите товар.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="quantity" class="form-label">Количество:</label>
+                                    <input type="text" class="form-control" id="quantity" 
+                                           placeholder="Введите количество" 
+                                           pattern="^[1-9][0-9]*$" 
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, введите корректное количество (только цифры, начиная с 1).
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success btn-lg">Рассчитать стоимость</button>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div id="result" class="alert alert-success mt-3" style="display: none;">
+                                        <h5 class="alert-heading">Результат расчета:</h5>
+                                        <p id="result-text" class="mb-0"></p>
+                                    </div>
+                                    <div id="error" class="alert alert-danger mt-3" style="display: none;">
+                                        <p id="error-text" class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
 
-            <li><a href="form-section">О нас (внутренняя страница)</a></li>
+            <div class="col-12 order-2 order-lg-1">
+                <section class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Список гиперссылок</h2>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="http://kubsu.ru" class="text-success">КубГУ (HTTP)</a></li>
+                            <li class="mb-2"><a href="https://kubsu.ru" class="text-success">КубГУ (HTTPS)</a></li>
+                            <li class="mb-2">
+                                <a href="https://kubsu.ru" class="text-success">
+                                    <img src="https://upload.wikimedia.org/wikipedia/ru/a/a2/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%9A%D1%83%D0%B1%D0%93%D0%A3.png" 
+                                         alt="Логотип КубГУ" 
+                                         class="img-thumbnail" 
+                                         style="width: 100px; height: 100px;">
+                                </a> 
+                            </li>
+                            <li class="mb-2">
+                                <a href="https://www.balenciaga.com/en-en?ysclid=mfpo38gsb2994508615" class="text-success">
+                                    <img src="https://www.balenciaga.com/on/demandware.static/-/Sites/default/dw09f423ba/images/logo/BAL/logo.svg" 
+                                         alt="Логотип balenciaga" 
+                                         class="img-thumbnail" 
+                                         style="width: 200px; height: 100px;">
+                                </a>
+                            </li>
+                            <li class="mb-2"><a href="form-section" class="text-success">О нас (внутренняя страница)</a></li>
+                            <li class="mb-2"><a href="https://clck.ru/3PHSVU" class="text-success">Главная страница</a></li>
+                            <li class="mb-2"><a href="#form-section" class="text-success">Перейти к форме (текущая страница)</a></li>
+                            <li class="mb-2"><a href="https://www.google.com/search?q=КубГУ&num=1&hl=ru" class="text-success">Ссылка с параметрами</a></li>
+                            <li class="mb-2"><a href="https://www.kubsu.ru/ru/user/71019" class="text-success">Ссылка с id</a></li>
+                            <li class="mb-2"><a href="./page.html" class="text-success">Страница в текущем каталоге</a></li>
+                            <li class="mb-2"><a href="./about/info.html" class="text-success">Страница в каталоге about</a></li>
+                            <li class="mb-2"><a href="../page.html" class="text-success">Страница уровнем выше</a></li>
+                            <li class="mb-2"><a href="../../page.html" class="text-success">Страница двумя уровнями выше</a></li>
+                            <li class="mb-2"><a href="https://clck.ru/3PHT3P" class="text-success">сторонний сайт</a></li>
+                            <li class="mb-2">
+                                Ссылки на изображении:
+                                <img src="https://via.placeholder.com/300x150?text=Карта+ссылок" 
+                                     usemap="#image-map" 
+                                     alt="Карта ссылок" 
+                                     class="img-fluid mt-2">
+                                <map name="image-map">
+                                    <area shape="rect" coords="0,0,150,150" href="https://kubsu.ru" alt="Прямоугольная область">
+                                    <area shape="circle" coords="225,75,50" href="https://kubsu.ru/about" alt="Круглая область">
+                                </map>
+                            </li>
+                            <li class="mb-2"><a href="" class="text-success">Пустая ссылка</a></li>
+                            <li class="mb-2">Ссылка без href</li>
+                            <li class="mb-2"><a href="https://kubsu.ru" rel="nofollow" class="text-success">Запрещена для перехода поисковиков</a></li>
+                            <li class="mb-2"><a href="https://kubsu.ru" rel="noindex" class="text-success">Запрещена для индексации</a></li>
+                            <li class="mb-2">
+                                Ссылки с атрибутом title:
+                                <ol class="mt-2">
+                                    <li class="mb-1"><a href="https://kubsu.ru" title="Официальный сайт Кубанского государственного университета" class="text-success">КубГУ</a></li>
+                                    <li class="mb-1"><a href="https://kubsu.ru/ru/abiturient" title="Информация о университете" class="text-success">О нас</a></li>
+                                    <li class="mb-1"><a href="https://kubsu.ru/contacts" title="Контактная информация" class="text-success">Контакты</a></li>
+                                </ol>
+                            </li>
+                            <li class="mb-2"><a href="ftp://user:password@ftp.example.com/file.txt" class="text-success">Файл на FTP сервере</a></li>
+                        </ul>
+                        <p class="mt-3 mb-0">
+                            Кубанский государственный университет самый лучший университет Кубани.
+                            Больше информации 
+                            <a href="https://kubsu.ru/ru/university" target="_blank" class="text-success">тут</a>.
+                        </p>
+                    </div>
+                </section>
+            </div>
 
-            <li><a href="https://clck.ru/3PHSVU">Главная страница</a></li>
+            <div class="col-12 order-1 order-lg-2">
+                <section class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Таблица</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>Факультет</th>
+                                        <th>Направление подготовки</th>
+                                        <th>Количество студентов</th>
+                                        <th>Срок обучения</th>
+                                        <th>Форма обучения</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Компьютерных технологий и прикладной математики</td>
+                                        <td>Прикладная информатика</td>
+                                        <td>120</td>
+                                        <td>4 года</td>
+                                        <td rowspan="2">Очная</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Компьютерных технологий и прикладной математики</td>
+                                        <td>Математическое обеспечение</td>
+                                        <td>85</td>
+                                        <td>4 года</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Экономический</td>
+                                        <td>Экономика</td>
+                                        <td>150</td>
+                                        <td>4 года</td>
+                                        <td>Очная</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Экономический</td>
+                                        <td>Менеджмент</td>
+                                        <td>110</td>
+                                        <td>4 года</td>
+                                        <td>Очно-заочная</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Юридический</td>
+                                        <td>Юриспруденция</td>
+                                        <td>180</td>
+                                        <td>4 года</td>
+                                        <td>Очная</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Филологический</td>
+                                        <td>Журналистика</td>
+                                        <td>75</td>
+                                        <td>4 года</td>
+                                        <td>Очная</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
-            <li><a href="#form-section">Перейти к форме (текущая страница)</a></li>
+            <div class="col-12 order-3">
+                <section class="card shadow-sm" id="form-section">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Форма</h2>
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="full-name" class="form-label">ФИО:</label>
+                                    <input type="text" class="form-control" id="full-name" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, введите ваше ФИО.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="phone" class="form-label">Телефон:</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, введите ваш телефон.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="email" class="form-label">E-mail:</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, введите корректный email.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="birthdate" class="form-label">Дата рождения:</label>
+                                    <input type="date" class="form-control" id="birthdate" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, выберите дату рождения.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label class="form-label">Пол:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="male" required>
+                                        <label class="form-check-label" for="male">
+                                            Мужской
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="female">
+                                        <label class="form-check-label" for="female">
+                                            Женский
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="languages" class="form-label">Любимый язык программирования:</label>
+                                    <select class="form-select" id="languages" multiple required>
+                                        <option value="Pascal">Pascal</option>
+                                        <option value="C">C</option>
+                                        <option value="C++">C++</option>
+                                        <option value="JavaScript">JavaScript</option>
+                                        <option value="PHP">PHP</option>
+                                        <option value="Python">Python</option>
+                                        <option value="Java">Java</option>
+                                        <option value="Haskel">Haskel</option>
+                                        <option value="Clojure">Clojure</option>
+                                        <option value="Prolog">Prolog</option>
+                                        <option value="Scala">Scala</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, выберите хотя бы один язык программирования.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="bio" class="form-label">Биография:</label>
+                                    <textarea class="form-control" id="bio" rows="4" placeholder="Расскажите о себе..." required></textarea>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста, напишите вашу биографию.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="contract" required>
+                                        <label class="form-check-label" for="contract">
+                                            С контрактом ознакомлен(а)
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            Вы должны согласиться перед отправкой.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
 
-            <li><a href="https://www.google.com/search?q=КубГУ&num=1&hl=ru">Ссылка с параметрами</a></li>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-1">&copy; 1914-1918,1939-1945</p>
+                    <p class="mb-0">Кубанский государственный университет</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-            <li><a href="https://www.kubsu.ru/ru/user/71019">Ссылка с id</a></li>
-
-            <li><a href="./page.html">Страница в текущем каталоге</a></li>
-
-            <li><a href="./about/info.html">Страница в каталоге about</a></li>
-
-            <li><a href="../page.html">Страница уровнем выше</a></li>
-
-            <li><a href="../../page.html">Страница двумя уровнями выше</a></li>
-
-            <li><a href="https://clck.ru/3PHT3P">сторонний сайт</a></li>
-
-            <li>
-                Ссылки на изображении:
-                <img src="https://via.placeholder.com/300x150?text=Карта+ссылок" usemap="#image-map" alt="Карта ссылок">
-                <map name="image-map">
-                    <area shape="rect" coords="0,0,150,150" href="https://kubsu.ru" alt="Прямоугольная область">
-                    <area shape="circle" coords="225,75,50" href="https://kubsu.ru/about" alt="Круглая область">
-                </map>
-            </li>
-
-            <li><a href="">Пустая ссылка</a></li>
-
-            <li>Ссылка без href</li>
-
-            <li><a href="https://kubsu.ru" rel="nofollow">Запрещена для перехода поисковиков</a></li>
-
-            <li><a href="https://kubsu.ru" rel="noindex">Запрещена для индексации</a></li>
-
-            <li>
-                Ссылки с атрибутом title:
-                <ol>
-                    <li><a href="https://kubsu.ru" title="Официальный сайт Кубанского государственного университета">КубГУ</a></li>
-                    <li><a href="https://kubsu.ru/ru/abiturient" title="Информация о университете">О нас</a></li>
-                    <li><a href="https://kubsu.ru/contacts" title="Контактная информация">Контакты</a></li>
-                </ol>
-            </li>
-
-            <li><a href="ftp://user:password@ftp.example.com/file.txt">Файл на FTP сервере</a></li>
-        </ul>
-
-        <p>
-          Кубанский государственный университет самый лучший университет Кубани.
-          Больше информации 
-          <a href="https://kubsu.ru/ru/university" target="_blank">тут</a>.
-        </p>
-    </div>
-
-    <div class="section" id="form-section">
-        <h2>Форма</h2>
-        <form action="/submit" method="post">
-            <label for="full-name">ФИО:</label>
-            <input type="text" id="full-name" name="full-name" required>
-
-            <label for="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" required>
-
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="birthdate">Дата рождения:</label>
-            <input type="date" id="birthdate" name="birthdate" required>
-
-            <label>Пол:</label>
-            <input type="radio" id="male" name="gender" value="male" required>
-            <label for="male" style="display: inline;">Мужской</label>
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female" style="display: inline;">Женский</label>
-
-            <label for="languages">Любимый язык программирования:</label>
-            <select id="languages" name="languages" multiple required>
-                <option value="Pascal">Pascal</option>
-                <option value="C">C</option>
-                <option value="C++">C++</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="PHP">PHP</option>
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="Haskel">Haskel</option>
-                <option value="Clojure">Clojure</option>
-                <option value="Prolog">Prolog</option>
-                <option value="Scala">Scala</option>
-            </select>
-
-            <label for="bio">Биография:</label>
-            <textarea id="bio" name="bio" placeholder="Расскажите о себе..."></textarea>
-
-            <label for="contract">
-                <input type="checkbox" id="contract" name="contract" required>
-                С контрактом ознакомлен(а)
-            </label>
-
-            <button type="submit">Сохранить</button>
-        </form>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="calculator.js" defer></script>
+    
+    <script>
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 </html>
