@@ -1,0 +1,105 @@
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-success:hover {
+    color: #218838 !important;
+    text-decoration: underline;
+}
+
+
+.card {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.card-title {
+    color: #333;
+    border-bottom: 2px solid #28a745 !important;
+}
+
+
+.table-success {
+    background-color: #28a745 !important;
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+
+.img-thumbnail {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+
+.navbar-dark.bg-dark {
+    background-color: #343a40 !important;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    border-radius: 4px;
+}
+
+
+@media (max-width: 991.98px) {
+    .order-1 {
+        order: 1 !important;
+    }
+    .order-2 {
+        order: 2 !important;
+    }
+    .order-3 {
+        order: 3 !important;
+    }
+}
+
+
+@media (max-width: 575.98px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+
+.card,
+.btn,
+.nav-link,
+.form-control {
+    transition: all 0.3s ease;
+}
