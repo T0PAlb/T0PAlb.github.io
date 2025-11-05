@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Задание по HTML: Ссылки и форма</title>
+    <title>Калькулятор стоимости услуги - КубГУ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mew.css">
 </head>
 <body>
     <header class="bg-light border-bottom py-3">
@@ -60,46 +60,115 @@
             <div class="col-12">
                 <section class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Калькулятор стоимости заказа</h2>
-                        <form id="calculator-form" class="needs-validation" novalidate>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="product" class="form-label">Выберите товар:</label>
-                                    <select class="form-select" id="product" required>
-                                        <option value="" selected disabled>-- Выберите товар --</option>
-                                        <option value="250000">balenciaga - 250 000 руб.</option>
-                                        <option value="150000">Rick Owens - 150 000 руб.</option>
-                                        <option value="350000">Raf simons - 350 000 руб.</option>
-                                        <option value="800000">adidas - 800 000руб.</option>
-                                        <option value="120000">jeremy scott - 120 000 руб.</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Пожалуйста, выберите товар.
-                                    </div>
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Галерея изображений</h2>
+                        <div class="gallery-container">
+                            <div class="gallery-slider" id="gallerySlider">
+                                <div class="gallery-item">
+                                    <img src="https://avatars.mds.yandex.net/i?id=a4ba6d85a3768645cfc05517d8015ecb_l-4320611-images-thumbs&n=13" alt="Изображение 1">
                                 </div>
-                                
+                                <div class="gallery-item">
+                                    <img src="https://avatars.mds.yandex.net/i?id=0c1c5312042c4978d1024cd3d184147c_l-5173453-images-thumbs&n=13" alt="Изображение 2">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i.pinimg.com/736x/43/59/40/4359406e7470e8354d3ea45312b14232.jpg" alt="Изображение 3">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i.pinimg.com/originals/29/f6/f9/29f6f9496c3030566487936c54d9c91b.jpg" alt="Изображение 4">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i1.sndcdn.com/artworks-Iv7SDCwyQxzjGnB6-vKEMyg-t500x500.jpg" alt="Изображение 5">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i.ytimg.com/vi/CBTZsW7fhEY/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEEgWShyMA8=&rs=AOn4CLBCL07C1Doei2xUaHC6nnzBmRgJrg" alt="Изображение 6">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i.ytimg.com/vi/jIVJf6IGqiM/maxresdefault.jpg" alt="Изображение 7">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="https://i.pinimg.com/originals/b8/4c/b4/b84cb43e3edbe9127189115e3cc025d0.jpg" alt="Изображение 8">
+                                </div>
+                            </div>
+                            <div class="gallery-controls">
+                                <button class="gallery-arrow" id="prevBtn">←</button>
+                                <div class="gallery-pager" id="galleryPager"></div>
+                                <button class="gallery-arrow" id="nextBtn">→</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-12">
+                <section class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4 border-bottom pb-2">Калькулятор стоимости услуги</h2>
+                        <form id="calculator-form">
+                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="quantity" class="form-label">Количество:</label>
-                                    <input type="text" class="form-control" id="quantity" 
-                                           placeholder="Введите количество" 
-                                           pattern="^[1-9][0-9]*$" 
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Пожалуйста, введите корректное количество (только цифры, начиная с 1).
+                                    <input type="number" class="form-control" id="quantity" 
+                                           min="1" value="1" required>
+                                    <div class="form-text">Введите количество услуг</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label">Тип услуги:</label>
+                                    <div class="form-check service-option">
+                                        <input class="form-check-input" type="radio" name="serviceType" 
+                                               id="type1" value="basic" checked>
+                                        <label class="form-check-label" for="type1">
+                                            Rick Owens - 1000 руб.
+                                        </label>
+                                    </div>
+                                    <div class="form-check service-option">
+                                        <input class="form-check-input" type="radio" name="serviceType" 
+                                               id="type2" value="standard">
+                                        <label class="form-check-label" for="type2">
+                                            balenciaga - 2000 руб.
+                                        </label>
+                                    </div>
+                                    <div class="form-check service-option">
+                                        <input class="form-check-input" type="radio" name="serviceType" 
+                                               id="type3" value="premium">
+                                        <label class="form-check-label" for="type3">
+                                            Adidas - 3500 руб.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="dynamic-sections" class="dynamic-section">
+                                <div id="options-section" class="row mb-3" style="display: none;">
+                                    <div class="col-md-6">
+                                        <label for="options" class="form-label">Опции услуги:</label>
+                                        <select class="form-select" id="options">
+                                            <option value="option1" data-price="500">Опция 1 (+500 руб.)</option>
+                                            <option value="option2" data-price="1000">Опция 2 (+1000 руб.)</option>
+                                            <option value="option3" data-price="1500">Опция 3 (+1500 руб.)</option>
+                                        </select>
                                     </div>
                                 </div>
                                 
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-success btn-lg">Рассчитать стоимость</button>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <div id="result" class="alert alert-success mt-3" style="display: none;">
-                                        <h5 class="alert-heading">Результат расчета:</h5>
-                                        <p id="result-text" class="mb-0"></p>
+                                <div id="properties-section" class="row mb-3" style="display: none;">
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="property" 
+                                                   value="express" data-price="2000">
+                                            <label class="form-check-label" for="property">
+                                                Экспресс-обслуживание (+2000 руб.)
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div id="error" class="alert alert-danger mt-3" style="display: none;">
-                                        <p id="error-text" class="mb-0"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="border-top pt-3">
+                                        <h4 class="mb-3">Итоговая стоимость:</h4>
+                                        <div class="price-display" id="total-price">1000 руб.</div>
                                     </div>
                                 </div>
                             </div>
@@ -314,6 +383,7 @@
                                 </div>
                                 
                                 <div class="col-12">
+                                    
                                     <label for="bio" class="form-label">Биография:</label>
                                     <textarea class="form-control" id="bio" rows="4" placeholder="Расскажите о себе..." required></textarea>
                                     <div class="invalid-feedback">
@@ -357,23 +427,137 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script src="calculator.js" defer></script>
-    
     <script>
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantity');
+            const serviceTypeRadios = document.querySelectorAll('input[name="serviceType"]');
+            const optionsSection = document.getElementById('options-section');
+            const optionsSelect = document.getElementById('options');
+            const propertiesSection = document.getElementById('properties-section');
+            const propertyCheckbox = document.getElementById('property');
+            const totalPriceElement = document.getElementById('total-price');
+            
+            const basePrices = {
+                basic: 1000,
+                standard: 2000,
+                premium: 3500
+            };
+            
+            function updateDynamicSections() {
+                const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
+                
+                optionsSection.style.display = 'none';
+                propertiesSection.style.display = 'none';
+                
+                if (selectedServiceType === 'standard') {
+                    optionsSection.style.display = 'block';
+                } else if (selectedServiceType === 'premium') {
+                    propertiesSection.style.display = 'block';
+                }
+                
+                calculateTotalPrice();
+            }
+            
+            function calculateTotalPrice() {
+                const quantity = parseInt(quantityInput.value) || 1;
+                const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
+                
+                let totalPrice = basePrices[selectedServiceType];
+                
+                if (selectedServiceType === 'standard' && optionsSelect.style.display !== 'none') {
+                    const selectedOption = optionsSelect.options[optionsSelect.selectedIndex];
+                    const optionPrice = parseInt(selectedOption.getAttribute('data-price')) || 0;
+                    totalPrice += optionPrice;
+                }
+                
+                if (selectedServiceType === 'premium' && propertyCheckbox.checked) {
+                    const propertyPrice = parseInt(propertyCheckbox.getAttribute('data-price')) || 0;
+                    totalPrice += propertyPrice;
+                }
+                
+                totalPrice *= quantity;
+                
+                totalPriceElement.textContent = `${totalPrice.toLocaleString('ru-RU')} руб.`;
+            }
+            
+            quantityInput.addEventListener('input', calculateTotalPrice);
+            
+            serviceTypeRadios.forEach(radio => {
+                radio.addEventListener('change', updateDynamicSections);
+            });
+            
+            optionsSelect.addEventListener('change', calculateTotalPrice);
+            propertyCheckbox.addEventListener('change', calculateTotalPrice);
+            
+            updateDynamicSections();
+
+            const gallerySlider = document.getElementById('gallerySlider');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const galleryPager = document.getElementById('galleryPager');
+            
+            let currentSlide = 0;
+            const itemsPerPage = window.innerWidth < 768 ? 1 : 3;
+            const totalItems = 8;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            
+            function updateGallery() {
+                const slideWidth = 100 / itemsPerPage;
+                const translateX = -currentSlide * slideWidth;
+                gallerySlider.style.transform = `translateX(${translateX}%)`;
+                
+                updatePager();
+            }
+            
+            function updatePager() {
+                galleryPager.innerHTML = '';
+                
+                for (let i = 0; i < totalPages; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = `page-dot ${i === currentSlide ? 'active' : ''}`;
+                    dot.addEventListener('click', () => {
+                        currentSlide = i;
+                        updateGallery();
+                    });
+                    galleryPager.appendChild(dot);
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalPages) % totalPages;
+                updateGallery();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalPages;
+                updateGallery();
+            });
+            
+            window.addEventListener('resize', () => {
+                const newItemsPerPage = window.innerWidth < 768 ? 1 : 3;
+                if (newItemsPerPage !== itemsPerPage) {
+                    currentSlide = 0;
+                    updateGallery();
+                }
+            });
+            
+            updateGallery();
+
+            (function () {
+                'use strict'
+                var forms = document.querySelectorAll('.needs-validation')
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        });
     </script>
 </body>
 </html>
