@@ -1,97 +1,113 @@
-document.addEventListener('DOMContentLoaded', function() {
-    initCalculator();
+
+const gallerySlider = document.getElementById('gallerySlider');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const galleryPager = document.getElementById('galleryPager');
+
+let currentSlide = 0;
+let isDragging = false;
+let startPos = 0;
+let currentTranslate = 0;
+let prevTranslate = 0;
+let animationID;
+
+const itemsPerPage = window.innerWidth < 768 ? 1 : 3;
+const totalItems = 12; 
+const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+
+function getPositionX(event) {
+    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+}
+
+function setSliderPosition() {
+    gallerySlider.style.transform = `translateX(${currentTranslate}px)`;
+}
+
+function animation() {
+    setSliderPosition();
+    if (isDragging) requestAnimationFrame(animation);
+}
+
+function setPositionByIndex() {
+    const slideWidth = gallerySlider.offsetWidth / itemsPerPage;
+    currentTranslate = currentSlide * -slideWidth;
+    prevTranslate = currentTranslate;
+    setSliderPosition();
+}
+
+
+gallerySlider.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startPos = getPositionX(e);
+    animationID = requestAnimationFrame(animation);
+    gallerySlider.style.cursor = 'grabbing';
 });
 
-function initCalculator() {
-    const calculatorForm = document.getElementById('calculator-form');
-    const resultDiv = document.getElementById('result');
-    const errorDiv = document.getElementById('error');
-    const resultText = document.getElementById('result-text');
-    const errorText = document.getElementById('error-text');
+gallerySlider.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        const currentPosition = getPositionX(e);
+        currentTranslate = prevTranslate + currentPosition - startPos;
+    }
+});
+
+gallerySlider.addEventListener('mouseup', () => {
+    cancelAnimationFrame(animationID);
+    isDragging = false;
+    const movedBy = currentTranslate - prevTranslate;
     
-    calculatorForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        resultDiv.style.display = 'none';
-        errorDiv.style.display = 'none';
-        
-        const productSelect = document.getElementById('product');
-        const quantityInput = document.getElementById('quantity');
-        
-        const selectedProduct = productSelect.value;
-        const quantity = quantityInput.value.trim();
-        
-        if (!selectedProduct) {
-            showError('Пожалуйста, выберите товар из списка.');
-            return;
-        }
-        
-        const quantityRegex = /^[1-9][0-9]*$/;
-        if (!quantityRegex.test(quantity)) {
-            showError('Пожалуйста, введите корректное количество. Допускаются только цифры, начиная с 1.');
-            quantityInput.focus();
-            return;
-        }
-        
-        const price = parseInt(selectedProduct, 10);
-        const quantityNum = parseInt(quantity, 10);
-        
-        if (quantityNum > 1000000) {
-            showError('Количество товара слишком большое. Пожалуйста, введите значение меньше 1 000 000.');
-            return;
-        }
-        
-        const totalCost = calculateTotalCost(price, quantityNum);
-        
-        showResult(price, quantityNum, totalCost);
-    });
+    if (movedBy < -100 && currentSlide < totalPages - 1) {
+        currentSlide += 1;
+    }
     
-    const formInputs = calculatorForm.querySelectorAll('input, select');
-    formInputs.forEach(function(input) {
-        input.addEventListener('input', function() {
-            errorDiv.style.display = 'none';
+    if (movedBy > 100 && currentSlide > 0) {
+        currentSlide -= 1;
+    }
+    
+    setPositionByIndex();
+    gallerySlider.style.cursor = 'grab';
+});
+
+gallerySlider.addEventListener('mouseleave', () => {
+    if (isDragging) {
+        setPositionByIndex();
+        isDragging = false;
+    }
+});
+
+
+function updatePager() {
+    galleryPager.innerHTML = '';
+    
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('div');
+        dot.className = `page-dot ${i === currentSlide ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+            currentSlide = i;
+            setPositionByIndex();
+            updatePager();
         });
-    });
+        galleryPager.appendChild(dot);
+    }
 }
 
-function calculateTotalCost(price, quantity) {
-    return price * quantity;
-}
+prevBtn.addEventListener('click', () => {
+    currentSlide = Math.max(currentSlide - 1, 0);
+    setPositionByIndex();
+    updatePager();
+});
 
-function showResult(price, quantity, totalCost) {
-    const resultDiv = document.getElementById('result');
-    const resultText = document.getElementById('result-text');
-    
-    const formattedPrice = formatNumber(price);
-    const formattedQuantity = formatNumber(quantity);
-    const formattedTotal = formatNumber(totalCost);
-    
-    const productSelect = document.getElementById('product');
-    const selectedOption = productSelect.options[productSelect.selectedIndex];
-    const productName = selectedOption.text.split(' - ')[0];
-    
-    resultText.innerHTML = `
-        <strong>Товар:</strong> ${productName}<br>
-        <strong>Цена за единицу:</strong> ${formattedPrice} руб.<br>
-        <strong>Количество:</strong> ${formattedQuantity} шт.<br>
-        <strong>Общая стоимость:</strong> <span class="text-success fw-bold">${formattedTotal} руб.</span>
-    `;
-    
-    resultDiv.style.display = 'block';
-    
-    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+nextBtn.addEventListener('click', () => {
+    currentSlide = Math.min(currentSlide + 1, totalPages - 1);
+    setPositionByIndex();
+    updatePager();
+});
 
-function showError(message) {
-    const errorDiv = document.getElementById('error');
-    const errorText = document.getElementById('error-text');
-    
-    errorText.textContent = message;
-    errorDiv.style.display = 'block';
-    
-    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 
-function formatNumber(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-}
+window.addEventListener('resize', () => {
+    setPositionByIndex();
+});
+
+
+setPositionByIndex();
+updatePager();
