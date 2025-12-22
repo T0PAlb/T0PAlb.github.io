@@ -97,6 +97,112 @@
                     </div>
                 </section>
             </div>
+            <div class="calculator">
+        <h1>Калькулятор стоимости заказа</h1>
+        
+        <div class="form-group">
+            <label for="product">Выберите товар:</label>
+            <select id="product">
+                <option value="1500">adidas-1 500 руб.</option>
+                <option value="2500">nike-2 500 руб.</option>
+                <option value="800">balenciaga-800 руб.</option>
+                <option value="3000">Rick Owens-3 000 руб.</option>
+                <option value="1200">LV-1 200 руб.</option>
+            </select>
+            <div class="product-info" id="product-description">
+                Качественные кроссовки
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">Количество товара:</label>
+            <input type="number" id="quantity" min="1" value="1" step="1">
+        </div>
+        
+        <button id="calculate-btn">Рассчитать стоимость</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Описания товаров
+        const productDescriptions = {
+            '1500': 'Качественные кроссовки',
+            '2500': 'Качественные кроссовки с удобной подошвой',
+            '800': 'Большая куртка',
+            '3000': 'стильные кроссовки',
+            '1200': 'украшающие очки'
+        };
+
+        // Элементы DOM
+        const productSelect = document.getElementById('product');
+        const quantityInput = document.getElementById('quantity');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultDiv = document.getElementById('result');
+        const productDescription = document.getElementById('product-description');
+
+        // Обновление описания товара при изменении выбора
+        productSelect.addEventListener('change', function() {
+            const price = this.value;
+            productDescription.textContent = productDescriptions[price] || '';
+        });
+
+        // Инициализация описания при загрузке
+        productDescription.textContent = productDescriptions[productSelect.value];
+
+        // Функция форматирования цены
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        // Основная функция расчета
+        function calculateTotal() {
+            const price = parseFloat(productSelect.value);
+            const quantity = parseInt(quantityInput.value);
+            
+            // Валидация ввода
+            if (isNaN(quantity) || quantity < 1) {
+                alert('Пожалуйста, введите корректное количество товара (минимум 1)');
+                quantityInput.value = 1;
+                quantityInput.focus();
+                return;
+            }
+            
+            const total = price * quantity;
+            
+            // Получаем название выбранного товара
+            const productName = productSelect.options[productSelect.selectedIndex].text.split(' - ')[0];
+            
+            // Отображаем результат
+            resultDiv.innerHTML = `
+                💰 Стоимость заказа: <span style="color: #2e7d32;">${formatPrice(total)} руб.</span><br>
+                <small style="color: #666; font-weight: normal;">
+                    ${quantity} × ${productName} (${formatPrice(price)} руб./шт.)
+                </small>
+            `;
+            resultDiv.style.display = 'block';
+            
+            // Плавная прокрутка к результату
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Обработчик клика по кнопке
+        calculateBtn.addEventListener('click', calculateTotal);
+
+        // Обработчик нажатия Enter в поле количества
+        quantityInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateTotal();
+            }
+        });
+
+        // Дополнительная валидация при изменении количества
+        quantityInput.addEventListener('input', function() {
+            if (this.value < 1) {
+                this.value = 1;
+            }
+        });
+    </script>
 
             <div class="col-12">
                 <section class="card shadow-sm">
@@ -561,3 +667,4 @@
     </script>
 </body>
 </html>
+
